@@ -432,17 +432,30 @@ class V2RayManager {
      */
     async stop() {
         try {
+            console.log('=== قطع اتصال VPN ===');
+            
             // غیرفعال کردن System Proxy
             await this.disableSystemProxy();
+            console.log('✓ Proxy غیرفعال شد');
 
             // متوقف کردن process
             if (this.v2rayProcess && !this.v2rayProcess.killed) {
-                this.v2rayProcess.kill();
+                this.v2rayProcess.kill('SIGTERM');
                 this.v2rayProcess = null;
+                console.log('✓ v2ray process بسته شد');
+            }
+            
+            // اطمینان از بسته شدن با taskkill
+            const { execSync } = require('child_process');
+            try {
+                execSync('taskkill /F /IM v2ray.exe 2>nul', { stdio: 'ignore' });
+                console.log('✓ تمام v2ray های باقی‌مانده بسته شدند');
+            } catch (e) {
+                // اگر v2ray نبود، مشکلی نیست
             }
 
             this.isRunning = false;
-            console.log('✓ V2Ray متوقف شد و Proxy غیرفعال شد');
+            console.log('=== قطع اتصال کامل ===');
             return true;
         } catch (error) {
             console.error('خطا در متوقف کردن V2Ray:', error);

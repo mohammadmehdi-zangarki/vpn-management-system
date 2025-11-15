@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const { exec } = require('child_process');
 
 let mainWindow;
 
@@ -37,6 +38,29 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
+});
+
+// قبل از بستن برنامه، v2ray و Proxy را پاک کن
+app.on('before-quit', async (event) => {
+  console.log('در حال پاکسازی قبل از خروج...');
+  
+  try {
+    // کشتن تمام v2ray processes
+    exec('taskkill /F /IM v2ray.exe', (error) => {
+      if (!error) {
+        console.log('✓ v2ray بسته شد');
+      }
+    });
+    
+    // غیرفعال کردن System Proxy
+    exec('reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f', (error) => {
+      if (!error) {
+        console.log('✓ Proxy غیرفعال شد');
+      }
+    });
+  } catch (error) {
+    console.error('خطا در پاکسازی:', error);
+  }
 });
 
 // IPC Handlers (برای ارتباط با Renderer Process)

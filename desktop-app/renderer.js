@@ -2,7 +2,7 @@ const axios = require('axios');
 const v2rayManager = require('./v2ray-manager');
 
 // تنظیمات API
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'http://89.44.241.83/api';
 
 // وضعیت برنامه
 let currentState = {
