@@ -1,0 +1,51 @@
+{
+  "name": "vpn-desktop-app",
+  "version": "1.0.0",
+  "description": "VPN Desktop Application for Windows",
+  "main": "main.js",
+  "scripts": {
+    "prestart": "node preload-v2ray.js",
+    "start": "electron .",
+    "download-v2ray": "node preload-v2ray.js",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "package": "electron-packager . VPNApp --platform=win32 --arch=x64 --out=dist-package --overwrite --asar --icon=assets/icon.ico"
+  },
+  "build": {
+    "appId": "com.vpnapp.desktop",
+    "productName": "VPN App",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "extraResources": [
+      {
+        "from": "v2ray-core",
+        "to": "v2ray-core",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "axios": "^1.6.2",
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-packager": "^17.1.2"
+  }
+}

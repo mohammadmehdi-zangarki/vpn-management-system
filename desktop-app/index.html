@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🔒 VPN App</h1>
+                <div class="status" id="status">
+                    <span class="status-dot"></span>
+                    <span id="statusText">غیرفعال</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Connection Panel -->
+            <div class="connection-panel" id="connectionPanel">
+                <div class="connection-info">
+                    <h2 id="connectionTitle">وضعیت اتصال</h2>
+                    <p id="connectionMessage">به سرور متصل نیستید</p>
+                </div>
+                <button class="btn btn-disconnect" id="disconnectBtn" style="display: none;">
+                    قطع اتصال
+                </button>
+            </div>
+
+            <!-- Categories -->
+            <div class="section">
+                <h2 class="section-title">دسته‌بندی‌های سرور</h2>
+                <div id="categoriesContainer" class="categories-grid">
+                    <div class="loading">در حال بارگذاری...</div>
+                </div>
+            </div>
+
+            <!-- Servers -->
+            <div class="section" id="serversSection" style="display: none;">
+                <div class="section-header">
+                    <h2 class="section-title" id="serversSectionTitle">لیست سرورها</h2>
+                    <button class="btn btn-secondary" id="backBtn">بازگشت</button>
+                </div>
+                <div id="serversContainer" class="servers-list">
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>نسخه 1.0.0 | توسعه یافته با ❤️</p>
+        </footer>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
+
