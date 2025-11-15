@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+// برای Production از relative path استفاده می‌کنیم
+const API_BASE_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000/api'
+  : '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
